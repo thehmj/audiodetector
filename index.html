@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Noise Detection</h1>
+    <div class="graph" id="graph">
+    <div id="frequency1" class="bar"></div>
+    </div>
+    <button id="start-btn">Start</button>
+    <button id="stop-btn">Stop</button>
+    <script>
+      const audioContext = new AudioContext();
+      let analyzer, source, dataArray, bufferLength, isRunning = false;
+      let count = 1;
+      function startNoiseDetection() {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(stream => {
+            source = audioContext.createMediaStreamSource(stream);
+            analyzer = audioContext.createAnalyser();
+            analyzer.fftSize = 2048;
+            source.connect(analyzer);
+
+            bufferLength = analyzer.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+            isRunning = true;
+
+            detectNoise();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+
+      function stopNoiseDetection() {
+        isRunning = false;
+        source.disconnect();
+        analyzer.disconnect();
+      }
+
+      function detectNoise() {
+        if (!isRunning) return;
+        
+        requestAnimationFrame(detectNoise);
+        analyzer.getByteFrequencyData(dataArray);
+        const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+        const frequency = (average / 255) * audioContext.sampleRate / 2;
+        // console.log(frequency);
+        const idname = `frequency${count}`
+        // console.log(idname);
+        document.getElementById(idname).style.height = frequency/100 + 'px' ;
+        // console.log(document.getElementById(idname).style.width);
+        count = count +1 ;
+        const storingbox = document.getElementById('graph').innerHTML;
+        // console.log(storingbox);
+        document.getElementById('graph').innerHTML = storingbox + `<div id="frequency${count}" class="bar"></div>`
+      }
+
+      document.getElementById("start-btn").addEventListener("click", startNoiseDetection);
+      document.getElementById("stop-btn").addEventListener("click", stopNoiseDetection);
+    </script>
+    
+</body>
+</html>
