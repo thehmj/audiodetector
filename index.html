@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<body>
+  <body>
     <h1>Noise Detection</h1>
     <div class="graph" id="graph">
     <div id="frequency1" class="bar"></div>
@@ -15,10 +15,11 @@
     <button id="start-btn">Start</button>
     <button id="stop-btn">Stop</button>
     <script>
-      const audioContext = new AudioContext();
-      let analyzer, source, dataArray, bufferLength, isRunning = false;
+      let audioContext, analyzer, source, dataArray, bufferLength, isRunning = false;
       let count = 1;
       function startNoiseDetection() {
+        audioContext = new AudioContext();
+
         navigator.mediaDevices.getUserMedia({ audio: true })
           .then(stream => {
             source = audioContext.createMediaStreamSource(stream);
@@ -45,12 +46,12 @@
 
       function detectNoise() {
         if (!isRunning) return;
-        
+
         requestAnimationFrame(detectNoise);
         analyzer.getByteFrequencyData(dataArray);
         const average = dataArray.reduce((a, b) => a + b) / bufferLength;
         const frequency = (average / 255) * audioContext.sampleRate / 2;
-        // console.log(frequency);
+        // document.getElementById("frequency").textContent = frequency.toFixed(2) + " Hz";
         const idname = `frequency${count}`
         // console.log(idname);
         document.getElementById(idname).style.height = frequency/100 + 'px' ;
@@ -64,6 +65,5 @@
       document.getElementById("start-btn").addEventListener("click", startNoiseDetection);
       document.getElementById("stop-btn").addEventListener("click", stopNoiseDetection);
     </script>
-    
-</body>
+  </body>
 </html>
