@@ -1,69 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Noise Detector</title>
 </head>
-  <body>
-    <h1>Noise Detection</h1>
+<body>
+  <div class="main">
+    <h1 class="title">Noise Detection</h1>
     <div class="graph" id="graph">
-    <div id="frequency1" class="bar"></div>
+      <div id="frequency1" class="bar"></div>
     </div>
-    <button id="start-btn">Start</button>
-    <button id="stop-btn">Stop</button>
-    <script>
-      let audioContext, analyzer, source, dataArray, bufferLength, isRunning = false;
-      let count = 1;
-      function startNoiseDetection() {
-        audioContext = new AudioContext();
+    <div class="buttons">
+    <div class="button" id="start-btn">Start</div>
+    <div class="button" id="stop-btn">Stop</div>
+  </div>
+  <div class="directions">
+    <li>Click On Start Button To detect Surrounding Noise</li>
+    <li>Graph will show Surrounding Noise You can see spikes for loud voice or music</li>
+    <li>Click On Stop button to stop detection</li>
+  </div>
+  <footer>
+    <a href="https://thehmj.github.io/portfolio" target="_blank" rel="noopener noreferrer">&copy; Himanshu Jain</a>
+  </footer>
+  </div>
 
-        navigator.mediaDevices.getUserMedia({ audio: true })
-          .then(stream => {
-            source = audioContext.createMediaStreamSource(stream);
-            analyzer = audioContext.createAnalyser();
-            analyzer.fftSize = 2048;
-            source.connect(analyzer);
+  <script src="script.js"></script>
+</body>
 
-            bufferLength = analyzer.frequencyBinCount;
-            dataArray = new Uint8Array(bufferLength);
-            isRunning = true;
-
-            detectNoise();
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-
-      function stopNoiseDetection() {
-        isRunning = false;
-        source.disconnect();
-        analyzer.disconnect();
-      }
-
-      function detectNoise() {
-        if (!isRunning) return;
-
-        requestAnimationFrame(detectNoise);
-        analyzer.getByteFrequencyData(dataArray);
-        const average = dataArray.reduce((a, b) => a + b) / bufferLength;
-        const frequency = (average / 255) * audioContext.sampleRate / 2;
-        // document.getElementById("frequency").textContent = frequency.toFixed(2) + " Hz";
-        const idname = `frequency${count}`
-        // console.log(idname);
-        document.getElementById(idname).style.height = frequency/100 + 'px' ;
-        // console.log(document.getElementById(idname).style.width);
-        count = count +1 ;
-        const storingbox = document.getElementById('graph').innerHTML;
-        // console.log(storingbox);
-        document.getElementById('graph').innerHTML = storingbox + `<div id="frequency${count}" class="bar"></div>`
-      }
-
-      document.getElementById("start-btn").addEventListener("click", startNoiseDetection);
-      document.getElementById("stop-btn").addEventListener("click", stopNoiseDetection);
-    </script>
-  </body>
 </html>
