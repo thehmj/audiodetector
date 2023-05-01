@@ -150,3 +150,12 @@ footer a:hover {
     font-family: 'Orbitron', sans-serif;
     color: #ddff00;
 }
+.alert_box{
+    display: flex;
+    justify-content: center;
+}
+.alert{
+    background-color: green;
+   text-align: center;
+    min-width: 40%;
+}

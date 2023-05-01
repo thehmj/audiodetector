@@ -52,7 +52,20 @@ function detectNoise() {
   document.getElementById('graph').innerHTML = storingbox + `<div id="frequency${count}" class="bar"></div>`;
   console.log(document.getElementById('pointer').style.transform);
   document.getElementById('pointer').style.transform = `rotate(${-125 +(frequency)/80}deg)`;
-  document.getElementById('digital').innerText = parseInt(frequency) + "  HZ";
+  document.getElementById('digital').innerText = parseInt(frequency) + "  DB";
+  if (frequency < 1000) {
+    document.getElementById('alert').innerText = 'Low Volume';
+    document.getElementById('alert').style.backgroundColor = 'green';
+
+      } else if(frequency>=1000 && frequency < 4000) {
+    document.getElementById('alert').innerText = 'Normal Volume' ;
+    document.getElementById('alert').style.backgroundColor = 'yellow';
+  }
+  else{
+    document.getElementById('alert').innerText = "High Volume";
+    document.getElementById('alert').style.backgroundColor = 'Red';
+
+  }
 }
 
 document.getElementById("start-btn").addEventListener("click", startNoiseDetection);
