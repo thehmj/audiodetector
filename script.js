@@ -2,7 +2,7 @@ let audioContext, analyzer, source, dataArray, bufferLength, isRunning = false;
 let count = 1;
 var c = document.getElementsByClassName('tick');
 for (let index = 0; index < c.length; index++) {
-  c[index].style.transform = `rotate(${10*index}deg) rotateZ(-120deg)`;
+  c[index].style.transform = `rotate(${17*index}deg) rotateZ(-120deg)`;
 }
 console.log(c[0].style.transform);
 document.getElementsByClassName('speed__tick').innerHTML= c;
@@ -52,6 +52,7 @@ function detectNoise() {
   document.getElementById('graph').innerHTML = storingbox + `<div id="frequency${count}" class="bar"></div>`;
   console.log(document.getElementById('pointer').style.transform);
   document.getElementById('pointer').style.transform = `rotate(${-125 +(frequency)/80}deg)`;
+  document.getElementById('digital').innerText = parseInt(frequency) + "  HZ";
 }
 
 document.getElementById("start-btn").addEventListener("click", startNoiseDetection);

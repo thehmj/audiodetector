@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
 body {
     margin: 0;
     padding: 0;
@@ -8,9 +10,10 @@ body {
 .title {
     text-align: center;
     color: white;
-    text-shadow: 1px 1px 6px black;
+    text-shadow: 1px 1px 6px white;
 
 }
+
 .graph {
     display: flex;
     width: 99%;
@@ -32,7 +35,8 @@ body {
     height: 10px;
     background-color: green;
 }
-.buttons{
+
+.buttons {
     display: flex;
     justify-content: space-between;
 }
@@ -50,24 +54,28 @@ body {
     margin: 2vh;
     cursor: pointer;
 }
-.button:hover{
+
+.button:hover {
     color: white;
     background-color: red;
 }
-.button:active{
+
+.button:active {
     color: white;
     background-color: red;
-}  
-footer{
+}
+
+footer {
     position: fixed;
     background-color: rgb(30, 28, 28);
-    border-top:1px solid;
+    border-top: 1px solid;
 
     bottom: 0;
- width: 100%;
- text-align: center;
+    width: 100%;
+    text-align: center;
 }
-footer a{
+
+footer a {
     font-size: large;
     font-weight: 500;
     text-decoration: none;
@@ -75,32 +83,34 @@ footer a{
     margin-top: 1px;
     height: 1vh;
 }
-footer a:hover{
+
+footer a:hover {
     color: blue;
 }
-.speed{
+
+.speed {
     display: flex;
     width: 100%;
     justify-content: center;
+    position: relative;
 }
-  
-  .speed__wheel {
+
+.speed__wheel {
     position: absolute;
     width: 300px;
     height: 300px;
     border-radius: 50%;
     background-color: #000;
-    
     clip-path: polygon(-2% -2%, 102% -2%, 102% 80%, -2% 80%);
     box-shadow: 1px 1px 3px 3px rgba(0, 0, 255, 0.508);
-  }
+}
 
-  .speed__tick {
+.speed__tick {
     display: flex;
     gap: 1px;
-  }
-  
-  .tick {
+}
+
+.tick {
     transform-origin: bottom;
     position: absolute;
     background: linear-gradient(to top, transparent 90%, red 90%);
@@ -108,11 +118,12 @@ footer a:hover{
     width: 2px;
     top: 10px;
     left: 50%;
-  }
+}
 
-  .pointer {
+
+.pointer {
     position: relative;
-    background: yellow;
+    background: rgba(222, 222, 3, 0.884);
     height: 190px;
     width: 20px;
     left: 140px;
@@ -120,9 +131,9 @@ footer a:hover{
     clip-path: polygon(9px 10px, 11px 10px, 20px 150px, 10px 190px, 0 150px);
     transform-origin: 10px 145px;
     transform: rotate(-125deg);
-  }
-  
-  .pointer::before {
+}
+
+.pointer::before {
     content: '';
     position: absolute;
     width: 10px;
@@ -131,4 +142,11 @@ footer a:hover{
     top: 140px;
     left: 5px;
     border-radius: 50%;
-  }
+}
+
+.digital {
+    display: flex;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    color: #ddff00;
+}
