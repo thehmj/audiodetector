@@ -1,11 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: yellow;
+    background-color: rgb(21, 19, 19);
+    color: white;
 }
-.main{
-    height: 90vh;
-}
+
 .title {
     text-align: center;
     color: white;
@@ -15,15 +14,14 @@ body {
 .graph {
     display: flex;
     width: 99%;
-    height: 40vh;
+    height: 30vh;
     /* background-color: rgb(234, 226, 218); */
     position: relative;
     border-bottom: 1px solid;
     border-top: 1px solid;
+    overflow: hidden;
     align-items: end;
     padding: 0;
-
-
 }
 
 .bar {
@@ -60,17 +58,9 @@ body {
     color: white;
     background-color: red;
 }  
-
-.directions{
-    margin: 2vh;
-}
-.directions li{
-    font-size: large;
-    font-weight: 600;
-}
 footer{
     position: fixed;
-    background-color: yellow;
+    background-color: rgb(30, 28, 28);
     border-top:1px solid;
 
     bottom: 0;
@@ -81,10 +71,64 @@ footer a{
     font-size: large;
     font-weight: 500;
     text-decoration: none;
-    color: black;
+    color: white;
     margin-top: 1px;
     height: 1vh;
 }
 footer a:hover{
     color: blue;
 }
+.speed{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+  
+  .speed__wheel {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #000;
+    
+    clip-path: polygon(-2% -2%, 102% -2%, 102% 80%, -2% 80%);
+    box-shadow: 1px 1px 3px 3px rgba(0, 0, 255, 0.508);
+  }
+
+  .speed__tick {
+    display: flex;
+    gap: 1px;
+  }
+  
+  .tick {
+    transform-origin: bottom;
+    position: absolute;
+    background: linear-gradient(to top, transparent 90%, red 90%);
+    height: 140px;
+    width: 2px;
+    top: 10px;
+    left: 50%;
+  }
+
+  .pointer {
+    position: relative;
+    background: yellow;
+    height: 190px;
+    width: 20px;
+    left: 140px;
+    top: 3px;
+    clip-path: polygon(9px 10px, 11px 10px, 20px 150px, 10px 190px, 0 150px);
+    transform-origin: 10px 145px;
+    transform: rotate(-125deg);
+  }
+  
+  .pointer::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: gray;
+    top: 140px;
+    left: 5px;
+    border-radius: 50%;
+  }
