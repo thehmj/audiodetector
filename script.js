@@ -1,5 +1,6 @@
 let audioContext, analyzer, source, dataArray, bufferLength, isRunning = false;
 let count = 1;
+
 var c = document.getElementsByClassName('tick');
 for (let index = 0; index < c.length; index++) {
   c[index].style.transform = `rotate(${17*index}deg) rotateZ(-120deg)`;
@@ -41,7 +42,6 @@ function detectNoise() {
   analyzer.getByteFrequencyData(dataArray);
   const average = dataArray.reduce((a, b) => a + b) / bufferLength;
   const frequency = (average / 255) * audioContext.sampleRate / 2;
-  // document.getElementById("frequency").textContent = frequency.toFixed(2) + " Hz";
   const idname = `frequency${count}`
   // console.log(idname);
   document.getElementById(idname).style.height = frequency/80 + 'px' ;
@@ -70,3 +70,9 @@ function detectNoise() {
 
 document.getElementById("start-btn").addEventListener("click", startNoiseDetection);
 document.getElementById("stop-btn").addEventListener("click", stopNoiseDetection);
+document.getElementById('reset-btn').addEventListener(
+  "click", function reset(){
+    document.getElementById('graph').innerHTML = '<div id="frequency1" class="bar"></div>';
+    count =1;
+  }
+);
